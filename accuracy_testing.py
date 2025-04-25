@@ -1,5 +1,6 @@
 import numpy as np
-from eigenfaces_model import EigenfacesModel
+from eigenfaces_model_optimised import EigenfacesModel
+import cv2 as cv;
 
 def split_data(faces, faces_target, test_percentage):
     faces_dict = {}
@@ -33,6 +34,17 @@ faces_train, faces_train_target, faces_test, faces_test_target = split_data(face
 model = EigenfacesModel()
 
 model.train(faces_train, faces_train_target, 0.95)
-acc = model.test(faces_test, faces_test_target)
 
-print("accuracy:", acc)
+bohdan_test_picture = cv.imread("pics/BOhdan_test_photo.jpg", cv.IMREAD_GRAYSCALE)
+
+resized = cv.resize(bohdan_test_picture, (64, 64))
+
+# cv.imshow("bohdan_test_picture", resized)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+print(model.predict(resized))
+
+# acc = model.test(faces_test, faces_test_target)
+
+# print("accuracy:", acc)

@@ -9,6 +9,7 @@ class EigenfacesModel:
         self.best_eigenfaces = None
         self.mean_face_vector = None
         self.weight_list = None
+        self.threshold = None
 
 
     def train(self, faces, face_labels, confidence_level = 0.95):
@@ -34,6 +35,34 @@ class EigenfacesModel:
 
         self.weight_list = self.get_weight_list(normed_faces)
 
+        self.threshold = self.compute_threshold()
+
+
+    def compute_threshold(self):
+        
+        max_length = float("-inf")
+        person_maximum = float("-inf")
+
+        faces_dict = {}
+        for i, img in zip(self.face_labels, self.weight_list):
+            faces_dict[i] = faces_dict.get(i, []) + [img]
+
+        for _, person_projected_faces in faces_dict.items():
+            person_maximum = float("-inf")
+
+            length = len(person_projected_faces)
+            
+            for i in range(length):
+
+                for j in range(i + 1, length):
+                        
+                    face_length = np.linalg.norm(np.array(person_projected_faces[i]) - np.array(person_projected_faces[j]))
+                    person_maximum = max(person_maximum, face_length)
+
+                max_length = max(max_length, person_maximum)
+
+        return max_length * 0.8
+
 
     def test(self, faces_test, face_test_labels):
         correct_count = 0
@@ -50,7 +79,7 @@ class EigenfacesModel:
             # print(f'{i} : {np.dot(mean_substructed_face, np_eigenfaces[i])}')
             weighted_prediction.append(np.dot(mean_substructed_face, eigenface))
 
-        length_list = []
+        # length_list = []
         val_face_dist = float("inf")
         ind = -1
 
@@ -59,10 +88,12 @@ class EigenfacesModel:
             if (val_face_dist > val):
                 val_face_dist = val
                 ind = num
-            # val_face_dist = min(val, val_face_dist)
-            length_list.append(val)
-
-        return self.face_labels[ind]
+            val_face_dist = min(val, val_face_dist)
+            # length_list.append(val)
+    
+        # print(f"{self.threshold = }")
+        # print(f"The minimal length is: {val_face_dist}")
+        return self.face_labels[ind] if val_face_dist < self.threshold else -1
 
 
     def get_eigenvectors_and_eigenvalues(self, normed_faces):

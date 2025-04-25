@@ -9,6 +9,8 @@ class EigenfacesModel:
         self.best_eigenfaces = None
         self.mean_face_vector = None
         self.weight_list = None
+        self.threshold = None
+
 
 
     def train(self, faces, face_labels, confidence_level = 0.95):
@@ -34,6 +36,32 @@ class EigenfacesModel:
         self.best_eigenfaces = eigenfaces[:k]
 
         self.weight_list = self.get_weight_list(normed_faces)
+
+
+    def compute_threshold(self):
+    
+        max_length = float("-inf")
+        person_maximum = float("-inf")
+
+        faces_dict = {}
+        for i, img in zip(self.face_labels, self.weight_list):
+            faces_dict[i] = faces_dict.get(i, []) + [img]
+
+        for _, person_projected_faces in faces_dict.items():
+            person_maximum = float("-inf")
+
+            length = len(person_projected_faces)
+            
+            for i in range(length):
+
+                for j in range(i + 1, length):
+                        
+                    face_length = np.linalg.norm(np.array(person_projected_faces[i]) - np.array(person_projected_faces[j]))
+                    person_maximum = max(person_maximum, face_length)
+
+                max_length = max(max_length, person_maximum)
+
+        return max_length * 0.8
 
 
     def test(self, faces_test, face_test_labels):
