@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.decomposition import PCA
 
 class EigenfacesModel:
 
@@ -10,6 +11,7 @@ class EigenfacesModel:
         self.mean_face_vector = None
         self.weight_list = None
         self.threshold = None
+        self.pca = None
 
 
     def compute_threshold(self):
@@ -57,16 +59,14 @@ class EigenfacesModel:
 
         self.mean_face_vector = mean_face_vector
 
-        eigenvectors, eigenvalues = self.get_eigenvectors_and_eigenvalues(normed_faces)
+        n_components = 150
 
-        eigenfaces = eigenvectors
+        pca = PCA(n_components=n_components).fit(normed_faces)
 
-        # eigenfaces = self.convert_to_eigenfaces(eigenvectors, normed_faces)
-        k = self.num_of_best_eigenvalues(eigenvalues, confidence_level)
+        # self.pca = pca
 
-        self.best_eigenfaces = eigenfaces[:k]
-
-        self.weight_list = self.get_weight_list(normed_faces)
+        self.best_eigenfaces = pca.components_
+        self.weight_list = pca.transform(normed_faces)
         self.threshold = self.compute_threshold()
 
 
@@ -152,7 +152,7 @@ class EigenfacesModel:
             k = len(eigenvalues)
 
         return k
-    
+
 
     def get_weight_list(self, normed_faces):
 
