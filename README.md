@@ -3,7 +3,7 @@
 ## About the project
 
 Face recognition is a fundamental task in computer vision with applications ranging from security systems to human-computer interaction.
-While modern deep learning techniques have achieved state-of-the-art accuracy, this project explores a classical mathematical approach based on Principal Component Analysis (PCA) and the Eigenfaces method. Using linear algebra concepts such as covariance matrices, eigenvalues, and eigenvectors, we aim to develop a face recognition system. We plan on testing and comparing our model with the pre-made OpenCV designs to see how is the purely mathematical approach different form the modern techniques.
+While modern deep learning techniques have achieved state-of-the-art accuracy, this project explores a classical mathematical approach based on Principal Component Analysis (PCA) and the Eigenfaces method. Using linear algebra concepts such as covariance matrices, eigenvalues, and eigenvectors, we aim to develop a face recognition system. We plan on testing and comparing our model with the pre-made designs to see how is the purely mathematical approach different form the modern techniques.
 
 ## Structure
 eigenfaces.ipyng has implementation of our algorithm with explanations and test for one person.<br>
