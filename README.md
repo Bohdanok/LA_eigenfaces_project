@@ -12,7 +12,9 @@ eigenfaces\_model.py has all of implementation structured in a class which can b
 
 eigenfaces\_model\_optimised.py has optimised version, but for know it has worse accuracy(83\%).<br>
 
-accuracy\_testing.py this script is used for testing implementations.<br>
+eigenfaces\_model\_other.py has this algorith's version using sklearn <br>
+
+imlementations\_testing.ipynb this script is used for testing implementations.<br>
 
 ## Set up the project
 
