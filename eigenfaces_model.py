@@ -1,4 +1,5 @@
 import numpy as np
+from svd_lab import svd
 
 class EigenfacesModel:
 
@@ -115,9 +116,9 @@ class EigenfacesModel:
     def get_eigenvectors_and_eigenvalues(self, normed_faces):
         covariance_matrix = np.matmul(normed_faces.transpose(), normed_faces)
 
-        V, U, *_ = np.linalg.svd(covariance_matrix)
+        U, eigenvalues, *_ = svd(covariance_matrix, 50)
 
-        return V, U
+        return U, eigenvalues
 
 
     def convert_to_eigenfaces(self, eigenvectors, normed_faces):
