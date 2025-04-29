@@ -39,8 +39,10 @@ EigenfacesModel has following methods:
  - predict
  - test
 
-Short code example:<br>
-model = EigenfacesModel()<br>
-model.train(X_train, y_train, 0.95)<br>
-testing_metrics = model.test(X_test, y_test)<br>
+```
+Short code example:
+model = EigenfacesModel()
+model.train(X_train, y_train, 0.95)
+testing_metrics = model.test(X_test, y_test)
+```
 
