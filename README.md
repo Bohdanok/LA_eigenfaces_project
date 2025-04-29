@@ -32,14 +32,15 @@ jupyter imlementations_testing.ipynb
 ## Usage
 To use our project you need to use class EigenfacesModel
 
-You should import it from eigenfaces_model.py if you want to have nonoptimized version and eigenfaces_model_optimized.py otherwise/
+You should import it from eigenfaces_model.py if you want to have nonoptimized version and eigenfaces_model_optimized.py otherwise
 
 EigenfacesModel has following methods:
  - train
  - predict
  - test
 
-Short code example:
-model = EigenfacesModel()
-model.train(X_train, y_train, 0.95)
-testing_metrics = model.test(X_test, y_test)
+Short code example:<br>
+model = EigenfacesModel()<br>
+model.train(X_train, y_train, 0.95)<br>
+testing_metrics = model.test(X_test, y_test)<br>
+
